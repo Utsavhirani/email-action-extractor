@@ -1,0 +1,231 @@
+[
+  {
+    "id": "c01_single_pay_invoice",
+    "notes": "Single action with an absolute deadline and an attachment.",
+    "email": {
+      "sender": "billing@acme-supplies.com",
+      "receivers": ["finance@northwind.com"],
+      "subject": "Invoice #4821 - November office supplies",
+      "date": "2026-11-23T10:15:00-05:00",
+      "body": "Hello,\n\nPlease find attached invoice #4821 for November office supplies. Kindly pay it by December 5.\n\nBest regards,\nAcme Supplies Billing",
+      "files": ["INV-4821.pdf"]
+    },
+    "expected": [
+      {"action_type": "PAY_INVOICE", "owner": "finance@northwind.com", "due_date": "2026-12-05", "action_description": "Pay invoice #4821"}
+    ]
+  },
+  {
+    "id": "c02_single_schedule_meeting",
+    "notes": "Single action, no deadline.",
+    "email": {
+      "sender": "maria@northwind.com",
+      "receivers": ["tom@northwind.com"],
+      "subject": "Website redesign kickoff",
+      "date": "2026-11-23T09:00:00+00:00",
+      "body": "Hi Tom,\n\nThe redesign budget was approved. Could you set up a kickoff meeting with the design team?\n\nThanks,\nMaria"
+    },
+    "expected": [
+      {"action_type": "SCHEDULE_MEETING", "owner": "tom@northwind.com", "due_date": null, "action_description": "Set up kickoff meeting"}
+    ]
+  },
+  {
+    "id": "c03_approve_relative_weekday",
+    "notes": "Sent Monday 2026-11-23; 'by Wednesday' = 2026-11-25. Approving implies reading, but only APPROVE was asked for.",
+    "email": {
+      "sender": "lena@northwind.com",
+      "receivers": ["director@northwind.com"],
+      "subject": "Offsite budget request",
+      "date": "2026-11-23T14:30:00+01:00",
+      "body": "Hi,\n\nPlease approve the attached budget request for the team offsite by Wednesday so I can confirm the venue.\n\nLena",
+      "files": ["offsite_budget.xlsx"]
+    },
+    "expected": [
+      {"action_type": "APPROVE", "owner": "director@northwind.com", "due_date": "2026-11-25", "action_description": "Approve offsite budget"}
+    ]
+  },
+  {
+    "id": "c04_three_actions",
+    "notes": "Several distinct actions in one email, all for the single receiver.",
+    "email": {
+      "sender": "ceo@northwind.com",
+      "receivers": ["ops@northwind.com"],
+      "subject": "A few things before the board meeting",
+      "date": "2026-11-24T08:00:00+00:00",
+      "body": "Three things:\n1) Send me the latest sales deck.\n2) Pay the Q3 hosting invoice from CloudCo.\n3) Let me know our current headcount for December.\n\nThanks"
+    },
+    "expected": [
+      {"action_type": "SHARE_DOCUMENT", "owner": "ops@northwind.com", "due_date": null, "action_description": "Send sales deck"},
+      {"action_type": "PAY_INVOICE", "owner": "ops@northwind.com", "due_date": null, "action_description": "Pay Q3 hosting invoice"},
+      {"action_type": "PROVIDE_INFORMATION", "owner": "ops@northwind.com", "due_date": null, "action_description": "Report December headcount"}
+    ]
+  },
+  {
+    "id": "c05_compound_review_and_approve",
+    "notes": "Compound request 'review and approve' must be split into two actions. Sent Monday 2026-11-23; 'by Friday' = 2026-11-27.",
+    "email": {
+      "sender": "legal@northwind.com",
+      "receivers": ["priya@northwind.com"],
+      "subject": "Vendor contract - final version",
+      "date": "2026-11-23T11:00:00+05:30",
+      "body": "Hi Priya,\n\nPlease review and approve the attached vendor contract by Friday.\n\nRegards,\nLegal",
+      "files": ["vendor_contract_final.pdf"]
+    },
+    "expected": [
+      {"action_type": "REVIEW_DOCUMENT", "owner": "priya@northwind.com", "due_date": "2026-11-27", "action_description": "Review vendor contract"},
+      {"action_type": "APPROVE", "owner": "priya@northwind.com", "due_date": "2026-11-27", "action_description": "Approve vendor contract"}
+    ]
+  },
+  {
+    "id": "c06_fyi_no_action",
+    "notes": "Pure FYI. Mentions a 'meeting' that the stub will wrongly pick up.",
+    "email": {
+      "sender": "hr@northwind.com",
+      "receivers": ["all@northwind.com"],
+      "subject": "Office closed Thursday",
+      "date": "2026-11-23T16:00:00-08:00",
+      "body": "Hi all,\n\nJust a reminder that the office is closed this Thursday for Thanksgiving. The weekly all-hands meeting is cancelled this week.\n\nEnjoy the break!\nHR"
+    },
+    "expected": []
+  },
+  {
+    "id": "c07_newsletter_no_action",
+    "notes": "Newsletter with an attachment; words like 'review' and 'invoice' appear but nothing is asked of the reader.",
+    "email": {
+      "sender": "news@saasweekly.com",
+      "receivers": ["tom@northwind.com"],
+      "subject": "SaaS Weekly #212: the year in review",
+      "date": "2026-11-25T07:00:00+00:00",
+      "body": "This week: our year in review, why invoice automation is booming, and five tools teams loved in 2026. The full PDF edition is attached.\n\nYou are receiving this because you subscribed.",
+      "files": ["saas_weekly_212.pdf"]
+    },
+    "expected": []
+  },
+  {
+    "id": "c08_relative_tomorrow",
+    "notes": "Sent Tuesday 2026-12-01; 'by end of day tomorrow' = 2026-12-02.",
+    "email": {
+      "sender": "pm@northwind.com",
+      "receivers": ["dev-lead@northwind.com"],
+      "subject": "Project timeline",
+      "date": "2026-12-01T17:45:00+00:00",
+      "body": "Hey,\n\nCould you send me the updated project timeline by end of day tomorrow? I need it for the client call.\n\nThanks"
+    },
+    "expected": [
+      {"action_type": "SHARE_DOCUMENT", "owner": "dev-lead@northwind.com", "due_date": "2026-12-02", "action_description": "Send updated timeline"}
+    ]
+  },
+  {
+    "id": "c09_relative_friday_next_week",
+    "notes": "Sent Wednesday 2026-12-02; 'Friday next week' = 2026-12-11 (not this Friday, 2026-12-04).",
+    "email": {
+      "sender": "security@northwind.com",
+      "receivers": ["sam@northwind.com"],
+      "subject": "Mandatory security training",
+      "date": "2026-12-02T09:00:00+00:00",
+      "body": "Hi Sam,\n\nOur records show you haven't completed the annual security awareness training. Please complete it by Friday next week.\n\nSecurity Team"
+    },
+    "expected": [
+      {"action_type": "COMPLETE_TASK", "owner": "sam@northwind.com", "due_date": "2026-12-11", "action_description": "Complete security training"}
+    ]
+  },
+  {
+    "id": "c10_attachment_review_only_report",
+    "notes": "Two attachments but only the report must be reviewed; 'send comments' is part of the review, not a separate action. Sent Thursday 2026-11-26; 'by Monday' = 2026-11-30.",
+    "email": {
+      "sender": "analyst@northwind.com",
+      "receivers": ["maria@northwind.com"],
+      "subject": "Q4 report draft",
+      "date": "2026-11-26T13:20:00+00:00",
+      "body": "Hi Maria,\n\nAttached are the draft Q4 report and the slides for reference. Please review the report and send me your comments by Monday.\n\nThanks!",
+      "files": ["Q4_report_draft.docx", "Q4_slides.pptx"]
+    },
+    "expected": [
+      {"action_type": "REVIEW_DOCUMENT", "owner": "maria@northwind.com", "due_date": "2026-11-30", "action_description": "Review Q4 report"}
+    ]
+  },
+  {
+    "id": "c11_two_receivers_named_owners",
+    "notes": "Two receivers, each named for a different action. The stub assigns both to the first receiver.",
+    "email": {
+      "sender": "scrum@northwind.com",
+      "receivers": ["priya@northwind.com", "sam@northwind.com"],
+      "subject": "Sprint wrap-up",
+      "date": "2026-11-27T15:00:00+00:00",
+      "body": "Hi both,\n\nSam, please schedule the sprint retro with the team for next week.\nPriya, please share the sprint report with everyone.\n\nCheers"
+    },
+    "expected": [
+      {"action_type": "SCHEDULE_MEETING", "owner": "sam@northwind.com", "due_date": null, "action_description": "Schedule sprint retro"},
+      {"action_type": "SHARE_DOCUMENT", "owner": "priya@northwind.com", "due_date": null, "action_description": "Share sprint report"}
+    ]
+  },
+  {
+    "id": "c12_two_receivers_ambiguous_owner",
+    "notes": "'Can someone' with two receivers: owner is genuinely ambiguous, so null.",
+    "email": {
+      "sender": "maria@northwind.com",
+      "receivers": ["tom@northwind.com", "lena@northwind.com"],
+      "subject": "Bluebird payment still missing",
+      "date": "2026-11-30T10:00:00+00:00",
+      "body": "Hi Tom, hi Lena,\n\nBluebird Ltd still hasn't paid their October balance. Can someone follow up with them about it?\n\nMaria"
+    },
+    "expected": [
+      {"action_type": "FOLLOW_UP", "owner": null, "due_date": null, "action_description": "Chase Bluebird about payment"}
+    ]
+  },
+  {
+    "id": "c13_unclassified_personal_favour",
+    "notes": "A real request that fits no business type. Sent Monday 2026-11-30; 'by Thursday' = 2026-12-03.",
+    "email": {
+      "sender": "office@northwind.com",
+      "receivers": ["tom@northwind.com"],
+      "subject": "Card for Dana",
+      "date": "2026-11-30T12:00:00+00:00",
+      "body": "Hi Tom,\n\nIt's Dana's last week. Could you sign her farewell card at the front desk by Thursday?\n\nThanks!"
+    },
+    "expected": [
+      {"action_type": "UNCLASSIFIED", "owner": "tom@northwind.com", "due_date": "2026-12-03", "action_description": "Sign Dana's farewell card"}
+    ]
+  },
+  {
+    "id": "c14_conditional_follow_up",
+    "notes": "Conditional chase; the deadline is when to follow up. Sent Monday 2026-11-30; 'by Wednesday' = 2026-12-02.",
+    "email": {
+      "sender": "lena@northwind.com",
+      "receivers": ["facilities@northwind.com"],
+      "subject": "Lease renewal",
+      "date": "2026-11-30T09:30:00+00:00",
+      "body": "Hi,\n\nWe sent the lease renewal to the landlord last week. If we haven't heard back by Wednesday, please chase them.\n\nLena"
+    },
+    "expected": [
+      {"action_type": "FOLLOW_UP", "owner": "facilities@northwind.com", "due_date": "2026-12-02", "action_description": "Chase landlord on lease"}
+    ]
+  },
+  {
+    "id": "c15_reply_rsvp",
+    "notes": "Explicit 'reply' request. Sent Monday 2026-11-23; 'by Wednesday' = 2026-11-25. Mentions a dinner, not a meeting to schedule.",
+    "email": {
+      "sender": "maria@northwind.com",
+      "receivers": ["sam@northwind.com"],
+      "subject": "Team dinner Friday?",
+      "date": "2026-11-23T18:00:00+00:00",
+      "body": "Hey Sam,\n\nAre you joining the team dinner on Friday? Please reply by Wednesday so I can book the table.\n\nMaria"
+    },
+    "expected": [
+      {"action_type": "REPLY", "owner": "sam@northwind.com", "due_date": "2026-11-25", "action_description": "RSVP for team dinner"}
+    ]
+  },
+  {
+    "id": "c16_repeated_request_no_duplicate",
+    "notes": "The same request appears twice (body + P.S.); it must be listed once.",
+    "email": {
+      "sender": "legal@northwind.com",
+      "receivers": ["tom@northwind.com"],
+      "subject": "Signed NDA",
+      "date": "2026-11-24T11:00:00+00:00",
+      "body": "Hi Tom,\n\nPlease send me the signed NDA from Bluebird when you get a chance.\n\nThanks,\nLegal\n\nP.S. Don't forget the signed NDA!"
+    },
+    "expected": [
+      {"action_type": "SHARE_DOCUMENT", "owner": "tom@northwind.com", "due_date": null, "action_description": "Send signed NDA"}
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "email-action-extractor"
+version = "0.1.0"
+description = "LLM-based email -> business action extractor, plus an evaluator."
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.6",
+    "httpx>=0.27",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools]
+packages = ["core", "evaluator"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-m 'not eval'"
+markers = [
+    "eval: live evaluation over the golden dataset (run with: pytest -m eval -s)",
+]
