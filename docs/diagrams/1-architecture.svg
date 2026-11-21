@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/></marker>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+</defs>
+<style>
+text{font-family:'Segoe UI',Helvetica,Arial,sans-serif;fill:#0F172A}
+.t{font-size:24px;font-weight:700}
+.st{font-size:14px;fill:#475569}
+.h{font-size:15px;font-weight:600}
+.s{font-size:12.5px;fill:#475569}
+.lbl{font-size:12px;font-weight:600;fill:#334155}
+.pk{font-size:15px;font-weight:700}
+.m{font-family:Consolas,'Cascadia Mono',Menlo,monospace;font-size:13px;white-space:pre}
+.ln{stroke:#64748B;stroke-width:1.6;fill:none;marker-end:url(#a)}
+.dash{stroke-dasharray:5 4}
+.core{fill:#fff;stroke:#3B82F6;stroke-width:1.5}
+.ev{fill:#fff;stroke:#16A34A;stroke-width:1.5}
+.ext{fill:#FFF4E5;stroke:#EA8C00;stroke-width:1.5}
+.ent{fill:#F3EEFE;stroke:#7C3AED;stroke-width:1.5}
+.neu{fill:#F8FAFC;stroke:#94A3B8;stroke-width:1.5}
+</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="40" y="46" class="t">1 · Architecture: how the pieces fit</text>
+<text x="40" y="72" class="st">Two packages: core/ extracts actions from an email, and evaluator/ scores any extractor against a golden dataset.</text>
+
+<rect x="80" y="100" width="220" height="54" rx="10" class="ent"/>
+<text x="190" y="123" class="h" text-anchor="middle">main.py</text>
+<text x="190" y="143" class="s" text-anchor="middle">demo on one sample email</text>
+<rect x="470" y="100" width="260" height="54" rx="10" class="ent"/>
+<text x="600" y="123" class="h" text-anchor="middle">tests/test_eval_live.py</text>
+<text x="600" y="143" class="s" text-anchor="middle">pytest -m eval: the full eval run</text>
+<rect x="900" y="100" width="250" height="54" rx="10" class="ent"/>
+<text x="1025" y="123" class="h" text-anchor="middle">tests/test_*.py</text>
+<text x="1025" y="143" class="s" text-anchor="middle">89 unit tests, no network</text>
+
+<rect x="40" y="190" width="530" height="420" rx="14" fill="#F5F9FF" stroke="#3B82F6" stroke-width="1.5"/>
+<text x="60" y="216" class="pk" fill="#1D4ED8" style="fill:#1D4ED8">core/  ·  the extractor</text>
+<rect x="165" y="235" width="280" height="58" rx="10" class="core"/>
+<text x="305" y="259" class="h" text-anchor="middle">extractor.py</text>
+<text x="305" y="280" class="s" text-anchor="middle">extract_actions(email): picks a path</text>
+<rect x="70" y="340" width="210" height="58" rx="10" class="core"/>
+<text x="175" y="364" class="h" text-anchor="middle">stub_extractor.py</text>
+<text x="175" y="385" class="s" text-anchor="middle">keyword baseline, offline</text>
+<rect x="330" y="340" width="210" height="58" rx="10" class="core"/>
+<text x="435" y="364" class="h" text-anchor="middle">llm_extractor.py</text>
+<text x="435" y="385" class="s" text-anchor="middle">OpenRouter over httpx</text>
+<path d="M255,293 L190,338" class="ln"/>
+<path d="M355,293 L420,338" class="ln"/>
+<text x="214" y="320" class="lbl" text-anchor="end">USE_LLM ≠ 1</text>
+<text x="396" y="320" class="lbl">USE_LLM = 1</text>
+<rect x="70" y="445" width="210" height="58" rx="10" class="core"/>
+<text x="175" y="469" class="h" text-anchor="middle">config.py</text>
+<text x="175" y="490" class="s" text-anchor="middle">settings from env vars / .env</text>
+<rect x="330" y="445" width="160" height="58" rx="10" class="core"/>
+<text x="410" y="469" class="h" text-anchor="middle">prompts.py</text>
+<text x="410" y="490" class="s" text-anchor="middle">rules · PROMPT_VERSION</text>
+<path d="M400,398 L400,443" class="ln"/>
+<path d="M340,398 L284,447" class="ln"/>
+<rect x="70" y="540" width="400" height="50" rx="10" class="core"/>
+<text x="270" y="570" class="h" text-anchor="middle">models.py · Email, ActionType, ExtractedAction</text>
+
+<path d="M515,398 L515,653" class="ln"/>
+<rect x="410" y="655" width="210" height="58" rx="10" class="ext"/>
+<text x="515" y="679" class="h" text-anchor="middle">OpenRouter API</text>
+<text x="515" y="700" class="s" text-anchor="middle">free LLMs, JSON-schema output</text>
+<text x="525" y="636" class="lbl">HTTPS POST</text>
+
+<rect x="630" y="190" width="530" height="420" rx="14" fill="#F3FBF6" stroke="#16A34A" stroke-width="1.5"/>
+<text x="650" y="216" class="pk" style="fill:#15803D">evaluator/  ·  the judge</text>
+<rect x="765" y="235" width="260" height="58" rx="10" class="ev"/>
+<text x="895" y="259" class="h" text-anchor="middle">runner.py</text>
+<text x="895" y="280" class="s" text-anchor="middle">evaluate(dataset, extract_fn)</text>
+<rect x="660" y="340" width="210" height="58" rx="10" class="ev"/>
+<text x="765" y="364" class="h" text-anchor="middle">dataset.py</text>
+<text x="765" y="385" class="s" text-anchor="middle">GoldenCase, load_dataset()</text>
+<rect x="920" y="340" width="210" height="58" rx="10" class="ev"/>
+<text x="1025" y="364" class="h" text-anchor="middle">matching.py</text>
+<text x="1025" y="385" class="s" text-anchor="middle">pair predicted ↔ expected</text>
+<rect x="660" y="445" width="210" height="58" rx="10" class="ev"/>
+<text x="765" y="469" class="h" text-anchor="middle">data/golden.json</text>
+<text x="765" y="490" class="s" text-anchor="middle">16 hand-labelled emails</text>
+<rect x="920" y="445" width="210" height="58" rx="10" class="ev"/>
+<text x="1025" y="469" class="h" text-anchor="middle">metrics.py</text>
+<text x="1025" y="490" class="s" text-anchor="middle">P · R · F1 · field accuracy</text>
+<path d="M835,293 L785,338" class="ln"/>
+<path d="M955,293 L1005,338" class="ln"/>
+<path d="M765,398 L765,443" class="ln"/>
+<path d="M1025,398 L1025,443" class="ln"/>
+<text x="775" y="426" class="lbl">loads</text>
+<text x="1035" y="426" class="lbl">MatchResult</text>
+<text x="660" y="552" class="s" font-style="italic">Never imports the extractor. It receives any function</text>
+<text x="660" y="571" class="s" font-style="italic">Email → list[ExtractedAction], so stub and LLM are graded the same way.</text>
+<path d="M630,590 L474,575" class="ln dash"/>
+<text x="600" y="602" class="lbl" text-anchor="middle">uses</text>
+
+<path d="M895,610 L895,653" class="ln"/>
+<text x="905" y="637" class="lbl">Report.save()</text>
+<rect x="790" y="655" width="210" height="58" rx="10" class="neu"/>
+<text x="895" y="679" class="h" text-anchor="middle">runs/*.json</text>
+<text x="895" y="700" class="s" text-anchor="middle">saved eval reports</text>
+
+<path d="M190,154 L265,233" class="ln"/>
+<path d="M560,154 L385,233" class="ln"/>
+<path d="M690,154 V172 H895 V233" class="ln"/>
+<text x="905" y="186" class="lbl">hands extract_actions to evaluate()</text>
+</svg>

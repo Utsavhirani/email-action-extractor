@@ -35,6 +35,25 @@ golden.json ──► evaluate(dataset, extract_fn) ──► Report (P / R / F1
 - Graded fields are `action_type` (for matching), `owner` and `due_date`.
   `action_description` is for people to read and is never graded.
 
+## Diagrams
+
+### Architecture
+![Architecture: core/ and evaluator/ packages](docs/diagrams/1-architecture.png)
+
+### Data models
+![Pydantic data models and which fields are graded](docs/diagrams/2-data-models.png)
+
+### Extraction flow
+![Stub vs LLM extraction paths](docs/diagrams/3-extraction-flow.png)
+
+### Matching
+![Two-pass matching vs greedy matching](docs/diagrams/4-matching.png)
+
+### Evaluation
+![Evaluation pipeline, metrics and results](docs/diagrams/5-evaluation.png)
+
+SVG versions of each diagram are in [`docs/diagrams/`](docs/diagrams/).
+
 ## Setup
 
 Requires Python 3.10+. Commands below are for Windows PowerShell.

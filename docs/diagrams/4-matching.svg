@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/></marker>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+</defs>
+<style>
+text{font-family:'Segoe UI',Helvetica,Arial,sans-serif;fill:#0F172A}
+.t{font-size:24px;font-weight:700}
+.st{font-size:14px;fill:#475569}
+.h{font-size:15px;font-weight:600}
+.s{font-size:12.5px;fill:#475569}
+.lbl{font-size:12px;font-weight:600;fill:#334155}
+.pk{font-size:15px;font-weight:700}
+.m{font-family:Consolas,'Cascadia Mono',Menlo,monospace;font-size:13px;white-space:pre}
+.ln{stroke:#64748B;stroke-width:1.6;fill:none;marker-end:url(#a)}
+.dash{stroke-dasharray:5 4}
+.core{fill:#fff;stroke:#3B82F6;stroke-width:1.5}
+.ev{fill:#fff;stroke:#16A34A;stroke-width:1.5}
+.ext{fill:#FFF4E5;stroke:#EA8C00;stroke-width:1.5}
+.ent{fill:#F3EEFE;stroke:#7C3AED;stroke-width:1.5}
+.neu{fill:#F8FAFC;stroke:#94A3B8;stroke-width:1.5}
+</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="40" y="46" class="t">4 · Matching: pairing predictions with the answer key</text>
+<text x="40" y="72" class="st">evaluator/matching.py. A pair needs the same action_type (no partial credit). Two passes make the result independent of list order.</text>
+
+<rect x="40" y="100" width="545" height="410" rx="14" fill="#F3FBF6" stroke="#16A34A" stroke-width="1.5"/>
+<text x="60" y="130" class="pk" style="fill:#15803D">✓ Two passes (what the code does)</text>
+<text x="80" y="170" class="lbl">Expected (golden)</text>
+<text x="370" y="170" class="lbl">Predicted (model)</text>
+<rect x="80" y="185" width="175" height="56" rx="10" class="ev"/>
+<text x="96" y="208" class="m">REVIEW_DOCUMENT</text><text x="96" y="228" class="s">owner: x@ex.com</text>
+<rect x="80" y="275" width="175" height="56" rx="10" class="ev"/>
+<text x="96" y="298" class="m">REVIEW_DOCUMENT</text><text x="96" y="318" class="s">owner: y@ex.com</text>
+<rect x="370" y="185" width="175" height="56" rx="10" class="core"/>
+<text x="386" y="208" class="m">REVIEW_DOCUMENT</text><text x="386" y="228" class="s">owner: y@ex.com</text>
+<rect x="370" y="275" width="175" height="56" rx="10" class="core"/>
+<text x="386" y="298" class="m">REVIEW_DOCUMENT</text><text x="386" y="318" class="s">owner: z@ex.com</text>
+<path d="M257,303 L366,215" stroke="#16A34A" stroke-width="2.4" fill="none" marker-end="url(#ag)"/>
+<path d="M257,213 L366,301" stroke="#2563EB" stroke-width="2.2" stroke-dasharray="7 5" fill="none" marker-end="url(#ab)"/>
+<line x1="80" y1="364" x2="120" y2="364" stroke="#16A34A" stroke-width="2.4"/>
+<text x="130" y="368" class="s">pass 1: same type AND same owner → y pairs with y</text>
+<line x1="80" y1="388" x2="120" y2="388" stroke="#2563EB" stroke-width="2.2" stroke-dasharray="7 5"/>
+<text x="130" y="392" class="s">pass 2: same type only → leftover x pairs with z</text>
+<text x="80" y="440" class="h" style="fill:#15803D">Owner accuracy: 1 / 2</text>
+<text x="80" y="464" class="s">The one owner the model got right is credited,</text>
+<text x="80" y="482" class="s">whatever order the lists come in.</text>
+
+<rect x="615" y="100" width="545" height="410" rx="14" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+<text x="635" y="130" class="pk" style="fill:#B91C1C">✗ One greedy pass (the bug it avoids)</text>
+<text x="655" y="170" class="lbl">Expected (golden)</text>
+<text x="945" y="170" class="lbl">Predicted (model)</text>
+<rect x="655" y="185" width="175" height="56" rx="10" class="ev"/>
+<text x="671" y="208" class="m">REVIEW_DOCUMENT</text><text x="671" y="228" class="s">owner: x@ex.com</text>
+<rect x="655" y="275" width="175" height="56" rx="10" class="ev"/>
+<text x="671" y="298" class="m">REVIEW_DOCUMENT</text><text x="671" y="318" class="s">owner: y@ex.com</text>
+<rect x="945" y="185" width="175" height="56" rx="10" class="core"/>
+<text x="961" y="208" class="m">REVIEW_DOCUMENT</text><text x="961" y="228" class="s">owner: y@ex.com</text>
+<rect x="945" y="275" width="175" height="56" rx="10" class="core"/>
+<text x="961" y="298" class="m">REVIEW_DOCUMENT</text><text x="961" y="318" class="s">owner: z@ex.com</text>
+<path d="M832,213 L941,213" stroke="#DC2626" stroke-width="2.4" fill="none" marker-end="url(#ar)"/>
+<path d="M832,303 L941,303" stroke="#DC2626" stroke-width="2.4" fill="none" marker-end="url(#ar)"/>
+<line x1="655" y1="364" x2="695" y2="364" stroke="#DC2626" stroke-width="2.4"/>
+<text x="705" y="368" class="s">take the first unused action of the same type</text>
+<text x="705" y="392" class="s">x grabs y first, so y is left with z</text>
+<text x="655" y="440" class="h" style="fill:#B91C1C">Owner accuracy: 0 / 2</text>
+<text x="655" y="464" class="s">Same predictions, lower score, only because of</text>
+<text x="655" y="482" class="s">the order of the expected list.</text>
+
+<text x="40" y="552" class="h">What each outcome counts as</text>
+<rect x="40" y="566" width="360" height="104" rx="10" class="ev"/>
+<text x="56" y="594" class="h">Paired → true positive (TP)</text>
+<text x="56" y="618" class="s">then owner and due_date are graded by exact</text>
+<text x="56" y="636" class="s">match (owners trimmed and lowercased first)</text>
+<rect x="420" y="566" width="360" height="104" rx="10" class="neu"/>
+<text x="436" y="594" class="h">Unpaired prediction → false positive (FP)</text>
+<text x="436" y="618" class="s">the model reported an action that</text>
+<text x="436" y="636" class="s">isn't in the answer key</text>
+<rect x="800" y="566" width="360" height="104" rx="10" class="neu"/>
+<text x="816" y="594" class="h">Unpaired expected → false negative (FN)</text>
+<text x="816" y="618" class="s">the model missed an action that</text>
+<text x="816" y="636" class="s">the answer key has</text>
+<text x="40" y="706" class="s">A different action_type never pairs. Tie-break inside a pass: prefer the candidate with the same due_date.</text>
+<text x="40" y="726" class="s">action_description is never compared.</text>
+</svg>

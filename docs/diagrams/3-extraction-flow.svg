@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="910" viewBox="0 0 1200 910">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/></marker>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+</defs>
+<style>
+text{font-family:'Segoe UI',Helvetica,Arial,sans-serif;fill:#0F172A}
+.t{font-size:24px;font-weight:700}
+.st{font-size:14px;fill:#475569}
+.h{font-size:15px;font-weight:600}
+.s{font-size:12.5px;fill:#475569}
+.lbl{font-size:12px;font-weight:600;fill:#334155}
+.pk{font-size:15px;font-weight:700}
+.m{font-family:Consolas,'Cascadia Mono',Menlo,monospace;font-size:13px;white-space:pre}
+.ln{stroke:#64748B;stroke-width:1.6;fill:none;marker-end:url(#a)}
+.dash{stroke-dasharray:5 4}
+.core{fill:#fff;stroke:#3B82F6;stroke-width:1.5}
+.ev{fill:#fff;stroke:#16A34A;stroke-width:1.5}
+.ext{fill:#FFF4E5;stroke:#EA8C00;stroke-width:1.5}
+.ent{fill:#F3EEFE;stroke:#7C3AED;stroke-width:1.5}
+.neu{fill:#F8FAFC;stroke:#94A3B8;stroke-width:1.5}
+</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="40" y="46" class="t">3 · Extraction: one email in, a list of actions out</text>
+<text x="40" y="72" class="st">extract_actions(email) in core/extractor.py is the single entry point. USE_LLM (off by default) picks the path.</text>
+
+<rect x="430" y="100" width="340" height="50" rx="25" class="core"/>
+<text x="600" y="121" class="h" text-anchor="middle">Email</text>
+<text x="600" y="140" class="s" text-anchor="middle">sender, receivers, subject, date, body, files</text>
+<path d="M600,150 L600,168" class="ln"/>
+<polygon points="600,170 730,215 600,260 470,215" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+<text x="600" y="220" class="h" text-anchor="middle">USE_LLM == "1" ?</text>
+<path d="M470,215 H230 V288" class="ln"/>
+<text x="350" y="205" class="lbl" text-anchor="middle">no (the default)</text>
+<path d="M730,215 H860 V288" class="ln"/>
+<text x="795" y="205" class="lbl" text-anchor="middle">yes</text>
+
+<rect x="60" y="290" width="340" height="250" rx="10" class="core"/>
+<path d="M60,300 a10,10 0 0 1 10,-10 h320 a10,10 0 0 1 10,10 v30 h-340 z" fill="#DBEAFE"/>
+<text x="76" y="316" class="h">stub_extractor.py: keyword baseline</text>
+<text x="76" y="356" class="m">"invoice"</text><text x="226" y="356" class="m">→ PAY_INVOICE</text>
+<text x="76" y="382" class="m">"meeting"/"call"</text><text x="226" y="382" class="m">→ SCHEDULE_MEETING</text>
+<text x="76" y="408" class="m">"approve"</text><text x="226" y="408" class="m">→ APPROVE</text>
+<text x="76" y="434" class="m">"review" + file</text><text x="226" y="434" class="m">→ REVIEW_DOCUMENT</text>
+<text x="76" y="464" class="s">owner = first receiver · due_date = always None</text>
+<text x="76" y="496" class="s" font-style="italic">No API calls. Deliberately simple: it is the</text>
+<text x="76" y="514" class="s" font-style="italic">baseline score the LLM has to beat.</text>
+
+<rect x="60" y="590" width="340" height="150" rx="10" class="neu"/>
+<text x="76" y="618" class="h">Why two paths?</text>
+<text x="76" y="646" class="s">• Unit tests and the eval run offline, for free</text>
+<text x="76" y="670" class="s">• The stub gives a baseline (F1 46.7%)</text>
+<text x="76" y="694" class="s">• Same signature, so the evaluator can't tell</text>
+<text x="76" y="714" class="s">   which extractor it is grading</text>
+
+<rect x="625" y="290" width="470" height="78" rx="10" class="core"/>
+<text x="641" y="314" class="h">① build_request_body()</text>
+<text x="641" y="336" class="s">system prompt: rules + 10 action definitions + JSON schema</text>
+<text x="641" y="356" class="s">user prompt: the email · models = [main, fallbacks] · temperature 0</text>
+<path d="M860,368 L860,388" class="ln"/>
+<rect x="625" y="390" width="470" height="78" rx="10" class="ext"/>
+<text x="641" y="414" class="h">② post_chat() → OpenRouter</text>
+<text x="641" y="436" class="s">one HTTPS POST; OpenRouter tries a fallback model if one is busy</text>
+<text x="641" y="456" class="s">response_format = JSON schema · require_parameters = true</text>
+<path d="M860,468 L860,488" class="ln"/>
+<rect x="625" y="490" width="470" height="78" rx="10" class="core"/>
+<text x="641" y="514" class="h">③ call_with_retry()</text>
+<text x="641" y="536" class="s">retry once on 429 / 5xx / network errors, with exponential backoff</text>
+<text x="641" y="556" class="s">daily free quota used up → fail at once (no wasted retries)</text>
+<path d="M860,568 L860,588" class="ln"/>
+<rect x="625" y="590" width="470" height="78" rx="10" class="core"/>
+<text x="641" y="614" class="h">④ validate</text>
+<text x="641" y="636" class="s">strip ``` fences → ExtractionResult.model_validate_json()</text>
+<text x="641" y="656" class="s">bad JSON or wrong shape → LLMError</text>
+<path d="M860,668 L860,688" class="ln"/>
+<rect x="625" y="690" width="470" height="78" rx="10" class="core"/>
+<text x="641" y="714" class="h">⑤ clean_actions()</text>
+<text x="641" y="736" class="s">trim + lowercase owner; owner not in the email → None (never guess)</text>
+<text x="641" y="756" class="s">then an optional LLM_CALL_DELAY_SECONDS pause</text>
+
+<path d="M400,415 H515 V818" class="ln"/>
+<path d="M860,768 V848 H772" class="ln"/>
+<rect x="430" y="820" width="340" height="56" rx="28" style="fill:#DBEAFE;stroke:#3B82F6;stroke-width:1.5"/>
+<text x="600" y="844" class="h" text-anchor="middle">list[ExtractedAction]</text>
+<text x="600" y="864" class="s" text-anchor="middle">same shape from both paths</text>
+</svg>

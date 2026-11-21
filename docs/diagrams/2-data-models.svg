@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/></marker>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+</defs>
+<style>
+text{font-family:'Segoe UI',Helvetica,Arial,sans-serif;fill:#0F172A}
+.t{font-size:24px;font-weight:700}
+.st{font-size:14px;fill:#475569}
+.h{font-size:15px;font-weight:600}
+.s{font-size:12.5px;fill:#475569}
+.lbl{font-size:12px;font-weight:600;fill:#334155}
+.pk{font-size:15px;font-weight:700}
+.m{font-family:Consolas,'Cascadia Mono',Menlo,monospace;font-size:13px;white-space:pre}
+.ln{stroke:#64748B;stroke-width:1.6;fill:none;marker-end:url(#a)}
+.dash{stroke-dasharray:5 4}
+.core{fill:#fff;stroke:#3B82F6;stroke-width:1.5}
+.ev{fill:#fff;stroke:#16A34A;stroke-width:1.5}
+.ext{fill:#FFF4E5;stroke:#EA8C00;stroke-width:1.5}
+.ent{fill:#F3EEFE;stroke:#7C3AED;stroke-width:1.5}
+.neu{fill:#F8FAFC;stroke:#94A3B8;stroke-width:1.5}
+</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="40" y="46" class="t">2 · Data models: what flows through the system</text>
+<text x="40" y="72" class="st">Pydantic v2 models in core/models.py and evaluator/dataset.py. Invalid data is rejected as soon as a model is built.</text>
+
+<rect x="40" y="110" width="320" height="260" rx="10" class="core"/>
+<path d="M40,120 a10,10 0 0 1 10,-10 h300 a10,10 0 0 1 10,10 v30 h-320 z" fill="#DBEAFE"/>
+<text x="56" y="136" class="h">Email</text>
+<text x="344" y="136" class="s" text-anchor="end">the input</text>
+<text x="56" y="172" class="m">sender: str</text>
+<text x="56" y="198" class="m">receivers: list[str]</text>
+<text x="56" y="224" class="m">subject: str</text>
+<text x="56" y="250" class="m">date: AwareDatetime</text><text x="344" y="250" class="s" text-anchor="end">timezone required</text>
+<text x="56" y="276" class="m">body: str</text>
+<text x="56" y="302" class="m">files: list[str] = []</text>
+<text x="56" y="328" class="m">has_attachments → bool</text><text x="344" y="328" class="s" text-anchor="end">computed</text>
+<text x="56" y="354" class="m">participants() → set[str]</text>
+
+<path d="M362,190 L478,190" class="ln" stroke-width="2.4"/>
+<text x="420" y="180" class="lbl" text-anchor="middle">extract_actions()</text>
+<text x="420" y="210" class="s" text-anchor="middle">0..n actions</text>
+
+<rect x="480" y="110" width="360" height="172" rx="10" class="core"/>
+<path d="M480,120 a10,10 0 0 1 10,-10 h340 a10,10 0 0 1 10,10 v30 h-360 z" fill="#DBEAFE"/>
+<text x="496" y="136" class="h">ExtractedAction</text>
+<text x="824" y="136" class="s" text-anchor="end">one action point</text>
+<text x="496" y="178" class="m">action_type: ActionType</text>
+<text x="496" y="208" class="m">owner: str | None</text>
+<text x="496" y="238" class="m">due_date: date | None</text>
+<text x="496" y="268" class="m">action_description: str</text>
+<rect x="722" y="164" width="104" height="20" rx="10" fill="#FEF3C7" stroke="#D97706"/><text x="774" y="178" class="lbl" text-anchor="middle">matched on</text>
+<rect x="722" y="194" width="104" height="20" rx="10" fill="#DCFCE7" stroke="#16A34A"/><text x="774" y="208" class="lbl" text-anchor="middle">graded</text>
+<rect x="722" y="224" width="104" height="20" rx="10" fill="#DCFCE7" stroke="#16A34A"/><text x="774" y="238" class="lbl" text-anchor="middle">graded</text>
+<rect x="722" y="254" width="104" height="20" rx="10" fill="#F1F5F9" stroke="#94A3B8"/><text x="774" y="268" class="lbl" text-anchor="middle">never graded</text>
+
+<path d="M842,174 L898,174" class="ln"/>
+<rect x="900" y="110" width="260" height="292" rx="10" class="core"/>
+<path d="M900,120 a10,10 0 0 1 10,-10 h240 a10,10 0 0 1 10,10 v30 h-260 z" fill="#DBEAFE"/>
+<text x="916" y="136" class="h">ActionType</text>
+<text x="1144" y="136" class="s" text-anchor="end">enum, 10 values</text>
+<text x="916" y="174" class="m">REPLY</text>
+<text x="916" y="198" class="m">SHARE_DOCUMENT</text>
+<text x="916" y="222" class="m">REVIEW_DOCUMENT</text>
+<text x="916" y="246" class="m">APPROVE</text>
+<text x="916" y="270" class="m">SCHEDULE_MEETING</text>
+<text x="916" y="294" class="m">PAY_INVOICE</text>
+<text x="916" y="318" class="m">COMPLETE_TASK</text>
+<text x="916" y="342" class="m">FOLLOW_UP</text>
+<text x="916" y="366" class="m">PROVIDE_INFORMATION</text>
+<text x="916" y="390" class="m">UNCLASSIFIED</text>
+
+<rect x="480" y="400" width="360" height="82" rx="10" class="core"/>
+<path d="M480,410 a10,10 0 0 1 10,-10 h340 a10,10 0 0 1 10,10 v30 h-360 z" fill="#DBEAFE"/>
+<text x="496" y="426" class="h">ExtractionResult</text>
+<text x="824" y="426" class="s" text-anchor="end">the LLM's output schema</text>
+<text x="496" y="466" class="m">actions: list[ExtractedAction]</text>
+<path d="M660,398 L660,286" class="ln"/>
+<text x="670" y="346" class="lbl">contains 0..n</text>
+<text x="480" y="508" class="s">Its JSON schema is sent to OpenRouter as response_format,</text>
+<text x="480" y="526" class="s">and the reply is checked with model_validate_json().</text>
+
+<rect x="40" y="440" width="320" height="156" rx="10" class="ev"/>
+<path d="M40,450 a10,10 0 0 1 10,-10 h300 a10,10 0 0 1 10,10 v30 h-320 z" fill="#DCFCE7"/>
+<text x="56" y="466" class="h">GoldenCase</text>
+<text x="344" y="466" class="s" text-anchor="end">one row of golden.json</text>
+<text x="56" y="502" class="m">id: str</text>
+<text x="56" y="528" class="m">email: Email</text>
+<text x="56" y="554" class="m">expected: list[ExtractedAction]</text>
+<text x="56" y="580" class="m">notes: str = ""</text>
+<path d="M200,438 L200,374" class="ln"/>
+<text x="210" y="412" class="lbl">1 email</text>
+<path d="M360,550 H430 V244 H476" class="ln"/>
+<text x="422" y="412" class="lbl" text-anchor="end">0..n expected</text>
+
+<rect x="40" y="628" width="1120" height="46" rx="10" class="neu"/>
+<rect x="60" y="641" width="104" height="20" rx="10" fill="#FEF3C7" stroke="#D97706"/><text x="112" y="655" class="lbl" text-anchor="middle">matched on</text>
+<text x="174" y="656" class="s">must be equal to pair</text>
+<rect x="390" y="641" width="104" height="20" rx="10" fill="#DCFCE7" stroke="#16A34A"/><text x="442" y="655" class="lbl" text-anchor="middle">graded</text>
+<text x="504" y="656" class="s">exact-match accuracy on matched pairs</text>
+<rect x="790" y="641" width="104" height="20" rx="10" fill="#F1F5F9" stroke="#94A3B8"/><text x="842" y="655" class="lbl" text-anchor="middle">never graded</text>
+<text x="904" y="656" class="s">free text for people to read</text>
+</svg>

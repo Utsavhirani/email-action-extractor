@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="935" viewBox="0 0 1200 935">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+<marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/></marker>
+<marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
+<marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/></marker>
+</defs>
+<style>
+text{font-family:'Segoe UI',Helvetica,Arial,sans-serif;fill:#0F172A}
+.t{font-size:24px;font-weight:700}
+.st{font-size:14px;fill:#475569}
+.h{font-size:15px;font-weight:600}
+.s{font-size:12.5px;fill:#475569}
+.lbl{font-size:12px;font-weight:600;fill:#334155}
+.pk{font-size:15px;font-weight:700}
+.m{font-family:Consolas,'Cascadia Mono',Menlo,monospace;font-size:13px;white-space:pre}
+.ln{stroke:#64748B;stroke-width:1.6;fill:none;marker-end:url(#a)}
+.dash{stroke-dasharray:5 4}
+.core{fill:#fff;stroke:#3B82F6;stroke-width:1.5}
+.ev{fill:#fff;stroke:#16A34A;stroke-width:1.5}
+.ext{fill:#FFF4E5;stroke:#EA8C00;stroke-width:1.5}
+.ent{fill:#F3EEFE;stroke:#7C3AED;stroke-width:1.5}
+.neu{fill:#F8FAFC;stroke:#94A3B8;stroke-width:1.5}
+</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="40" y="46" class="t">5 · Evaluation: from golden dataset to report</text>
+<text x="40" y="72" class="st">evaluator/runner.py: evaluate(dataset, extract_fn, mode, prompt_version) → Report. Scores are micro-averaged over all cases.</text>
+
+<rect x="40" y="100" width="1120" height="205" rx="14" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="60" y="128" class="lbl">FOR EACH OF THE 16 GOLDEN CASES</text>
+<rect x="70" y="150" width="190" height="90" rx="10" class="ev"/>
+<text x="165" y="185" class="h" text-anchor="middle">GoldenCase</text>
+<text x="165" y="207" class="s" text-anchor="middle">email + expected actions</text>
+<path d="M260,195 L294,195" class="ln"/>
+<rect x="296" y="150" width="190" height="90" rx="10" class="core"/>
+<text x="391" y="185" class="h" text-anchor="middle">extract_fn(email)</text>
+<text x="391" y="207" class="s" text-anchor="middle">stub or LLM: any function</text>
+<path d="M486,195 L520,195" class="ln"/>
+<rect x="522" y="150" width="190" height="90" rx="10" class="ev"/>
+<text x="617" y="185" class="h" text-anchor="middle">match_actions()</text>
+<text x="617" y="207" class="s" text-anchor="middle">pairs · extra · missed</text>
+<path d="M712,195 L746,195" class="ln"/>
+<rect x="748" y="150" width="190" height="90" rx="10" class="ev"/>
+<text x="843" y="180" class="h" text-anchor="middle">count_match()</text>
+<text x="843" y="202" class="s" text-anchor="middle">TP · FP · FN</text>
+<text x="843" y="220" class="s" text-anchor="middle">+ owner / due correct</text>
+<path d="M938,195 L972,195" class="ln"/>
+<rect x="974" y="150" width="160" height="90" rx="10" class="ev"/>
+<text x="1054" y="185" class="h" text-anchor="middle">CaseResult</text>
+<text x="1054" y="207" class="s" text-anchor="middle">failure reasons</text>
+<text x="1054" y="225" class="s" text-anchor="middle">in plain words</text>
+<path d="M391,240 L391,262" stroke="#DC2626" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="300" y="282" class="s" style="fill:#B91C1C">exception → case marked errored, all its expected actions count as FN, and the run continues</text>
+
+<path d="M843,240 C843,290 843,300 843,343" class="ln"/>
+<rect x="640" y="345" width="520" height="54" rx="10" class="ev"/>
+<text x="900" y="377" class="h" text-anchor="middle">Σ  add up TP, FP, FN and field tallies across all cases</text>
+<path d="M900,399 L900,428" class="ln"/>
+
+<rect x="640" y="430" width="520" height="200" rx="10" class="ev"/>
+<text x="656" y="456" class="h">Metrics (metrics.py)</text>
+<text x="656" y="486" class="m">Precision = TP / (TP + FP)</text><text x="905" y="486" class="s">how much of what it said was right</text>
+<text x="656" y="512" class="m">Recall    = TP / (TP + FN)</text><text x="905" y="512" class="s">how much of the key it found</text>
+<text x="656" y="538" class="m">F1        = 2·P·R / (P + R)</text><text x="905" y="538" class="s">balance of the two</text>
+<text x="656" y="564" class="m">Owner acc = owner right / TP</text><text x="905" y="564" class="s">on matched pairs only</text>
+<text x="656" y="590" class="m">Due acc   = due right / TP</text><text x="905" y="590" class="s">on matched pairs only</text>
+<text x="656" y="616" class="s" font-style="italic">Nothing predicted → P = 1.0 · nothing expected → R = 1.0 · no pairs → n/a</text>
+
+<path d="M638,530 L602,530" class="ln"/>
+<rect x="40" y="345" width="560" height="285" rx="10" class="ev"/>
+<path d="M40,355 a10,10 0 0 1 10,-10 h540 a10,10 0 0 1 10,10 v30 h-560 z" fill="#DCFCE7"/>
+<text x="56" y="371" class="h">Report</text>
+<text x="584" y="371" class="s" text-anchor="end">one per eval run</text>
+<text x="56" y="408" class="m">precision · recall · f1</text>
+<text x="56" y="432" class="m">owner_accuracy · due_date_accuracy</text>
+<text x="56" y="456" class="m">perfect_case_rate · error_count</text>
+<text x="56" y="480" class="m">no_action_correct / no_action_total</text>
+<text x="56" y="504" class="m">mode · prompt_version · timestamp</text>
+<text x="56" y="528" class="m">cases: list[CaseResult]</text>
+<rect x="56" y="552" width="250" height="60" rx="8" class="neu"/>
+<text x="181" y="577" class="h" text-anchor="middle">summary()</text>
+<text x="181" y="597" class="s" text-anchor="middle">readable report, printed</text>
+<rect x="322" y="552" width="262" height="60" rx="8" class="neu"/>
+<text x="453" y="577" class="h" text-anchor="middle">save()</text>
+<text x="453" y="597" class="s" text-anchor="middle">runs/&lt;time&gt;_&lt;mode&gt;_&lt;prompt&gt;.json</text>
+
+<rect x="40" y="665" width="1120" height="250" rx="14" class="neu"/>
+<text x="60" y="693" class="h">Real runs on the 16-case dataset</text>
+<text x="60" y="713" class="s">Owner accuracy was 100% for both.</text>
+<rect x="760" y="682" width="14" height="14" rx="3" fill="#94A3B8"/><text x="782" y="694" class="s">keyword stub (baseline)</text>
+<rect x="940" y="682" width="14" height="14" rx="3" fill="#2563EB"/><text x="962" y="694" class="s">nemotron-3.5-super-vl, prompt v2</text>
+
+<text x="200" y="747" class="lbl" text-anchor="end">Precision</text>
+<rect x="210" y="733" width="460.6" height="13" rx="2" fill="#94A3B8"/><text x="676.6" y="744" class="s">58.3%</text>
+<rect x="210" y="748" width="745.8" height="13" rx="2" fill="#2563EB"/><text x="961.8" y="759" class="s">94.4%</text>
+<text x="200" y="783" class="lbl" text-anchor="end">Recall</text>
+<rect x="210" y="769" width="307.3" height="13" rx="2" fill="#94A3B8"/><text x="523.3" y="780" class="s">38.9%</text>
+<rect x="210" y="784" width="745.8" height="13" rx="2" fill="#2563EB"/><text x="961.8" y="795" class="s">94.4%</text>
+<text x="200" y="819" class="lbl" text-anchor="end">F1</text>
+<rect x="210" y="805" width="368.9" height="13" rx="2" fill="#94A3B8"/><text x="584.9" y="816" class="s">46.7%</text>
+<rect x="210" y="820" width="745.8" height="13" rx="2" fill="#2563EB"/><text x="961.8" y="831" class="s">94.4%</text>
+<text x="200" y="855" class="lbl" text-anchor="end">Due-date accuracy</text>
+<rect x="210" y="841" width="225.9" height="13" rx="2" fill="#94A3B8"/><text x="441.9" y="852" class="s">28.6%</text>
+<rect x="210" y="856" width="790" height="13" rx="2" fill="#2563EB"/><text x="1006" y="867" class="s">100%</text>
+<text x="200" y="887" class="lbl" text-anchor="end">Perfect cases</text>
+<rect x="210" y="873" width="49.4" height="13" rx="2" fill="#94A3B8"/><text x="265.4" y="884" class="s">1 / 16</text>
+<rect x="210" y="888" width="740.6" height="13" rx="2" fill="#2563EB"/><text x="956.6" y="899" class="s">15 / 16</text>
+</svg>
